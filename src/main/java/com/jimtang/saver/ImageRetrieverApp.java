@@ -1,13 +1,17 @@
-package com.jimtang;
+package com.jimtang.saver;
 
-import com.jimtang.imagesav.RecurringImageSaver;
+import com.jimtang.saver.imagesav.RecurringImageSaver;
+import com.jimtang.saver.imagesav.SimpleImageSaver;
 
 import java.util.concurrent.TimeUnit;
 
 public class ImageRetrieverApp {
 
     public static void main(String[] args) {
-        int period1 = 50;
+
+        SimpleImageSaver simpleSaver = new SimpleImageSaver();
+
+        int period1 = 30;
         TimeUnit periodTimeUnit1 = TimeUnit.MINUTES;
         RecurringImageSaver saverSingle = new RecurringImageSaver(period1, periodTimeUnit1);
 
@@ -31,7 +35,10 @@ public class ImageRetrieverApp {
         String locationToSaveRgbLoop = "C:\\Dev\\saveImageTest\\RGB_loop.gif";
         saverLoop.addImage(imageUrlRgbLoop, locationToSaveRgbLoop);
 
+        simpleSaver.addImage(imageUrlRgbLoop, locationToSaveRgbLoop);
+
         saverSingle.execute();
         saverLoop.execute();
+        //simpleSaver.execute();
     }
 }

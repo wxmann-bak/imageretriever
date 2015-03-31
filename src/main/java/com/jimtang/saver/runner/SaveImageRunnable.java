@@ -1,6 +1,6 @@
-package com.jimtang.runner;
+package com.jimtang.saver.runner;
 
-import com.jimtang.imagesav.ImageRetrievalException;
+import com.jimtang.saver.imagesav.ImageRetrievalException;
 
 import java.io.*;
 import java.net.URL;

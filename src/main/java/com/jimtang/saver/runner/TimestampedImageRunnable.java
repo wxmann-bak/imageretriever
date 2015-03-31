@@ -1,7 +1,6 @@
-package com.jimtang.runner;
+package com.jimtang.saver.runner;
 
-import com.jimtang.file.TimestampAppender;
-import com.jimtang.runner.SaveImageRunnable;
+import com.jimtang.saver.file.TimestampAppender;
 
 /**
  * Created by tangz on 3/30/2015.

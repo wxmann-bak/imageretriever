@@ -1,4 +1,4 @@
-package com.jimtang.imagesav;
+package com.jimtang.saver.imagesav;
 
 /**
  * Created by tangz on 3/30/2015.
