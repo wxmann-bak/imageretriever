@@ -1,8 +1,5 @@
 package com.jimtang.file;
 
-import com.jimtang.file.FileNameBuildException;
-import com.jimtang.file.FileNameBuilder;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,7 +8,7 @@ import java.util.TimeZone;
 /**
  * Created by tangz on 3/30/2015.
  */
-public class TimestampAppender implements FileNameBuilder {
+public class TimestampAppender implements FileNameHandler {
 
     private DateFormat dateFormat;
 
@@ -28,7 +25,7 @@ public class TimestampAppender implements FileNameBuilder {
     public String buildName(String rawFileName) {
         String[] fileParts = rawFileName.split("\\.");
         if (fileParts.length != 2) {
-            throw new FileNameBuildException("File name: " + rawFileName + " is not in the expected format: <raw file name>.<file extension>");
+            throw new FileNameException("File name: " + rawFileName + " is not in the expected format: <raw file name>.<file extension>");
         }
         return String.format("%s-%s.%s", fileParts[0], getTimeStamp(), fileParts[1]);
     }

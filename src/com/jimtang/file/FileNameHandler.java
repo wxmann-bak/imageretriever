@@ -3,7 +3,7 @@ package com.jimtang.file;
 /**
  * Created by tangz on 3/30/2015.
  */
-public interface FileNameBuilder {
+public interface FileNameHandler {
 
     public String buildName(String rawFileName);
 
