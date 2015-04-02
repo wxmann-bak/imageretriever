@@ -17,16 +17,16 @@ public class SimpleImageSaver implements ImageSaver {
     private ExecutorService service;
     Map<String, String> imageToSaveLocationMap = new HashMap<String, String>();
 
-    public void addImage(String imageUrl, String locationToSavePrefix) {
-        if (imageUrl == null || locationToSavePrefix == null) {
+    public void addLocation(String imageUrl, String locationToSave) {
+        if (imageUrl == null || locationToSave == null) {
             throw new ImageRetrievalException("Image url and location to save cannot be null!");
         }
-        imageToSaveLocationMap.put(imageUrl, locationToSavePrefix);
+        imageToSaveLocationMap.put(imageUrl, locationToSave);
     }
 
     @Override
     public void execute() {
-        service = Executors.newFixedThreadPool(imageToSaveLocationMap.size());
+        service = Executors.newFixedThreadPool(1);
         for (Map.Entry<String, String> imageToSaveMapEntry : imageToSaveLocationMap.entrySet()) {
             String imageUrl = imageToSaveMapEntry.getKey();
             String fileLocationToSave = imageToSaveMapEntry.getValue();

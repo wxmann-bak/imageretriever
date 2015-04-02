@@ -5,5 +5,7 @@ package com.jimtang.saver.imagesav;
  */
 public interface ImageSaver {
 
+    void addLocation(String onlineLocation, String machineLocation);
+
     void execute();
 }
