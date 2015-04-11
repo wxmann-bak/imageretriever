@@ -30,18 +30,6 @@ public abstract class PageImageSaver implements ImageSaver {
         additionalFilter = link -> true;
     }
 
-    protected Predicate<String> fileTypeMatchFilter() {
-        if (fileTypes.length == 0) {
-            return link -> true;
-        }
-        String fileTypeMatch = String.format("(%s)", StringUtils.join(fileTypes, "|"));
-        String initialLinkCharacters = ".+?";
-        String caseInsensitivity = "(?i)";
-        String regex = caseInsensitivity + initialLinkCharacters + fileTypeMatch;
-
-        return link -> link.matches(regex);
-    }
-
     public void setFileTypes(String... fileTypes) {
         this.fileTypes = fileTypes;
     }
@@ -71,9 +59,22 @@ public abstract class PageImageSaver implements ImageSaver {
         }
     }
 
+    private Predicate<String> fileTypeMatchFilter() {
+        if (fileTypes.length == 0) {
+            return link -> true;
+        }
+        String fileTypeMatch = String.format("(%s)$", StringUtils.join(fileTypes, "|"));
+        String initialLinkCharacters = ".+?";
+        String caseInsensitivityFlag = "(?i)";
+        String regex = caseInsensitivityFlag + initialLinkCharacters + fileTypeMatch;
+
+        return link -> link.matches(regex);
+    }
+
     protected Collection<String> filterImages(Collection<String> foundImages) {
+        Predicate<String> fileTypeFilter = fileTypeMatchFilter();
         Collection<String> filtered = foundImages.stream()
-                .filter(fileTypeMatchFilter())
+                .filter(fileTypeFilter)
                 .filter(additionalFilter)
                 .collect(Collectors.toList());
         LOGGER.info(String.format
