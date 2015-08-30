@@ -28,6 +28,7 @@ public class MultipleJobHandler {
     public void runAll() {
         if (savers.isEmpty()) {
             LOGGER.info("No image savers in this job handler. Exit.");
+            return;
         }
         ExecutorService executorService = Executors.newFixedThreadPool(savers.size());
         for (ImageSaver saver: savers) {
