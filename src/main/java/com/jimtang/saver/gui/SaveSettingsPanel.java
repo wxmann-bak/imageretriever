@@ -13,15 +13,15 @@ import java.io.File;
 /**
  * Created by tangz on 8/29/2015.
  */
-public class SaveSettingsPanel extends JPanel implements ActionListener, InputSource, ControllerInjectable {
+public class SaveSettingsPanel extends CommonComponentPanel implements ActionListener, InputSource {
 
     static final String imageUrlTextFieldString = "Image URL:";
     static final String chooseDirectoryString = "Choose";
     static final String fileNameTextFieldString = "File name (including extension):";
-    static final int TEXT_FIELD_WIDTH = 25;
     static final String selectDirectoryString = "Select directory:";
+    static final String addLocationsString = "Add image to save";
 
-    private GridBagConstraints gbc = new GridBagConstraints();
+    static final int TEXT_FIELD_WIDTH = 25;
 
     JTextField imageUrlField;
     JTextField fileNameField;
@@ -32,19 +32,15 @@ public class SaveSettingsPanel extends JPanel implements ActionListener, InputSo
 
     JButton setLocationsButton;
 
-    // hard-code controller for now, we'll eventually remove this.
-    private ImageSaverController controller = new ImageSaverController() {
-        @Override
-        protected ImageSaver getImageSaver() {
-            return new SimpleImageSaver();
-        }
-    };
+    @Override
+    public void handleBorder() {
+        // TODO: we might need to work on this.
+//        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10),
+//                BorderFactory.createLineBorder(Color.BLUE)));
+    }
 
-    public SaveSettingsPanel() {
-        super(new GridBagLayout());
-        gbc.insets = new Insets(5, 5, 0, 0);
-        handleBorders();
-
+    @Override
+    public void buildUIComponents() {
         // user inputs URL of image
         initImageLocationTextField();
 
@@ -58,27 +54,6 @@ public class SaveSettingsPanel extends JPanel implements ActionListener, InputSo
         initSetLocationsButton();
     }
 
-    void handleBorders() {
-        // TODO: we might need to work on this.
-//        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10),
-//                BorderFactory.createLineBorder(Color.BLUE)));
-    }
-
-    void setGridAlignment(int x, int y) {
-        gbc.gridx = x;
-        gbc.gridy = y;
-        if (x == 0) {
-            // left-align
-            gbc.anchor = GridBagConstraints.WEST;
-        } else {
-            // right-align
-            gbc.anchor = GridBagConstraints.EAST;
-        }
-    }
-
-    void resetGridAlignment() {
-        gbc.anchor = 0;
-    }
 
     void initImageLocationTextField() {
         imageUrlField = new JTextField(TEXT_FIELD_WIDTH);
@@ -134,7 +109,7 @@ public class SaveSettingsPanel extends JPanel implements ActionListener, InputSo
     }
 
     void initSetLocationsButton() {
-        setLocationsButton = new JButton("Add image to save");
+        setLocationsButton = new JButton(addLocationsString);
         setLocationsButton.addActionListener(this);
 
         setGridAlignment(0, 3);
@@ -169,11 +144,6 @@ public class SaveSettingsPanel extends JPanel implements ActionListener, InputSo
         }
     }
 
-    @Override
-    public ImageSaverController getController() {
-        return controller;
-    }
-
     String getTargetLocation() {
         // TODO: handle nulls.
         File targetDirectory = directorySelector.getSelectedFile();
@@ -184,11 +154,6 @@ public class SaveSettingsPanel extends JPanel implements ActionListener, InputSo
     @Override
     public void addInputsToController() {
         String sourceLocation = imageUrlField.getText();
-        getController().addLocations(sourceLocation, getTargetLocation());
-    }
-
-    @Override
-    public void setController(ImageSaverController controller) {
-        this.controller = controller;
+        this.controller.addLocations(sourceLocation, getTargetLocation());
     }
 }

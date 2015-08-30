@@ -7,7 +7,5 @@ import com.jimtang.saver.controller.ImageSaverController;
  */
 public interface InputSource {
 
-    ImageSaverController getController();
-
     void addInputsToController();
 }

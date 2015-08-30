@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(1200, 1200);
 
-        SaveSettingsPanel panel = new SaveSettingsPanel();
+        RecurringImageSaverPanel panel = new RecurringImageSaverPanel();
         add(panel);
         pack();
         setVisible(true);
